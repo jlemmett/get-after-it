@@ -11,3 +11,6 @@ pom.xml.asc
 .lein-plugins/
 .lein-failures
 .nrepl-port
+figwheel_server.log
+*.iml
+/resources/public/js
