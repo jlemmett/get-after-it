@@ -27,12 +27,8 @@
                  (s/map-of ::id ::todo)                     ;; in this map, each todo is keyed by its :id
                  #(instance? PersistentTreeMap %)           ;; is a sorted-map (not just a map)
                  ))
-(s/def ::showing                                            ;; what todos are shown to the user?
-  #{:all                                                    ;; all todos are shown
-    :active                                                 ;; only todos whose :done is false
-    :done                                                   ;; only todos whose :done is true
-    })
-(s/def ::db (s/keys :req-un [::todos ::showing]))
+
+(s/def ::db (s/keys :req-un [::todos]))
 
 ;; -- Default app-db Value  ---------------------------------------------------
 ;;
@@ -45,7 +41,7 @@
 
 (def default-db           ;; what gets put into app-db by default.
   {:todos   (sorted-map)  ;; an empty list of todos. Use the (int) :id as the key
-   :showing :all})        ;; show all todos
+   })
 
 
 ;; -- Local Storage  ----------------------------------------------------------
@@ -56,7 +52,7 @@
 ;; filter. Just the todos.
 ;;
 
-(def ls-key "todos-reframe")                         ;; localstore key
+(def ls-key "get-after-it")                         ;; localstore key
 
 (defn todos->local-store
   "Puts todos into localStorage"

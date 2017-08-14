@@ -101,3 +101,12 @@
     {:db (assoc default-db :todos local-store-todos)}))     ;; all hail the new state
 
 
+(reg-event-db
+  :add-todo
+
+  todo-interceptors
+
+  (fn [todos [text]]
+    (println "handling :add-todo")
+    (let [id (allocate-next-id todos)]
+      (assoc todos id {:id id :title text :done false}))))

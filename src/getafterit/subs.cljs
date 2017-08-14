@@ -4,6 +4,7 @@
 (defn sorted-todos
   [db _]
   (:todos db))
+
 (reg-sub :sorted-todos sorted-todos)    ;; usage: (subscribe [:sorted-todos])
 
 (reg-sub
