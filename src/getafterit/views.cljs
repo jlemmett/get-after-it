@@ -3,6 +3,21 @@
             [re-frame.core :refer [subscribe dispatch]]
             [clojure.string :as str]))
 
+(defn todo-item
+  []
+  (fn [{:keys [id title done]}]
+    [:li {:class (str (when done "completed "))}
+     [:div.view
+      [:label
+       title]]]))
+
+(defn task-list []
+  []
+  (let [todos @(subscribe [:todos])]
+    [:section#main
+     [:ul#todo-list
+      (for [todo todos]
+          ^{:key (:id todo)} [todo-item todo])]]))
 
 (defn todo-input [{:keys [title on-save on-stop]}]
   (let [val (reagent/atom title)
@@ -37,4 +52,7 @@
   []
   [:div
    [:section#todoapp
-    [task-entry]]])
+    [task-entry]
+    (when (seq @(subscribe [:todos]))
+      [task-list])
+    ]])
